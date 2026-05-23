@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import BackButton from "@/components/BackButton";
-import TopicCard from "@/components/TopicCard";
 import { getTopic } from "@/data/units";
 
 type Props = { params: Promise<{ topicId: string }> };
@@ -11,25 +11,34 @@ export default async function TopicPage({ params }: Props) {
   if (!topic) notFound();
 
   const activities = [
-    { id: "flashcards", emoji: "🎴", name: "Flashcards", subtitle: "Flip and learn" },
-    { id: "matching", emoji: "🃏", name: "Matching", subtitle: "Find the pairs" },
-    { id: "quiz", emoji: "❓", name: "Quiz", subtitle: "Multiple choice" },
-    { id: "fill", emoji: "✏️", name: "Fill in the Blanks", subtitle: "Complete sentences" },
-    { id: "spelling", emoji: "🔤", name: "Spelling", subtitle: "Type the word" },
+    { id: "flashcards", emoji: "🎴", name: "Flashcards" },
+    { id: "matching", emoji: "🃏", name: "Matching" },
+    { id: "quiz", emoji: "❓", name: "Quiz" },
+    { id: "fill", emoji: "✏️", name: "Fill Blanks" },
+    { id: "spelling", emoji: "🔤", name: "Spelling" },
   ];
 
   return (
     <div>
       <BackButton />
-      <div className="text-center mb-8">
-        <div className="text-4xl mb-2">{topic.emoji}</div>
-        <h1 className="text-3xl font-extrabold text-gray-800">{topic.name}</h1>
-        <p className="text-lg text-gray-400">{topic.words.length} words to learn</p>
+      <div className="text-center mb-6">
+        <div className="text-4xl mb-1">{topic.emoji}</div>
+        <h1 className="text-2xl font-extrabold text-gray-800">{topic.name}</h1>
+        <p className="text-sm text-gray-400">{topic.words.length} words</p>
       </div>
-      <div className="grid gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {activities.map((act) => (
-          <TopicCard key={act.id} href={`/topic/${topicId}/${act.id}`} emoji={act.emoji}
-            title={act.name} subtitle={act.subtitle} color={topic.color} />
+          <Link
+            key={act.id}
+            href={`/topic/${topicId}/${act.id}`}
+            className="bg-white rounded-xl shadow-md active:scale-[0.95] transition-all overflow-hidden"
+          >
+            <div className="h-1.5 w-full" style={{ backgroundColor: topic.color }} />
+            <div className="p-4 text-center">
+              <div className="text-2xl mb-1">{act.emoji}</div>
+              <h3 className="text-sm font-bold text-gray-800">{act.name}</h3>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
