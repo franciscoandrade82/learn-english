@@ -92,18 +92,22 @@ async function generateImage(req: ImageRequest): Promise<void> {
 
   try {
     const response = await openai.images.generate({
-      model: "dall-e-3",
+      model: "gpt-image-1",
       prompt: fullPrompt,
       n: 1,
       size: "1024x1024",
-      quality: "standard",
-      response_format: "b64_json",
+      quality: "low",
     });
 
     const b64 = response.data?.[0]?.b64_json;
-    if (!b64) throw new Error("No image data returned");
-
-    fs.writeFileSync(outPath, Buffer.from(b64, "base64"));
+    if (b64) {
+      fs.writeFileSync(outPath, Buffer.from(b64, "base64"));
+    } else {
+      const url = response.data?.[0]?.url;
+      if (!url) throw new Error("No image data returned");
+      const imgResponse = await fetch(url);
+      fs.writeFileSync(outPath, Buffer.from(await imgResponse.arrayBuffer()));
+    }
     console.log(`  ✓ Saved: ${req.folder}/${req.filename}`);
   } catch (error) {
     console.error(`  ✗ Failed: ${req.folder}/${req.filename}`, error);
@@ -113,12 +117,11 @@ async function generateImage(req: ImageRequest): Promise<void> {
 async function main() {
   console.log(`Generating ${images.length} images...\n`);
 
-  for (let i = 0; i < images.length; i += 3) {
-    const batch = images.slice(i, i + 3);
-    await Promise.all(batch.map(generateImage));
-    if (i + 3 < images.length) {
-      console.log("  (waiting 2s for rate limits...)");
-      await new Promise((r) => setTimeout(r, 2000));
+  for (let i = 0; i < images.length; i++) {
+    await generateImage(images[i]);
+    if (i + 1 < images.length) {
+      console.log("  (waiting 15s for rate limits...)");
+      await new Promise((r) => setTimeout(r, 15000));
     }
   }
 

@@ -36,10 +36,10 @@ export default function MatchingGame({ words, color = "#45B7D1" }: Props) {
   const [locked, setLocked] = useState(false);
   const [finished, setFinished] = useState(false);
 
-  const gameWords = words.slice(0, 6);
-  const totalPairs = gameWords.length;
+  const totalPairs = Math.min(words.length, 6);
 
   function initGame() {
+    const gameWords = shuffleArray(words).slice(0, totalPairs);
     const cardList: Card[] = [];
     gameWords.forEach((w, i) => {
       cardList.push({ id: i * 2, content: w.word, type: "word", pairId: i, flipped: false, matched: false });
@@ -101,7 +101,7 @@ export default function MatchingGame({ words, color = "#45B7D1" }: Props) {
     return <ScoreScreen score={Math.min(score, totalPairs)} total={totalPairs} color={color} onPlayAgain={initGame} />;
   }
 
-  const cols = gameWords.length <= 4 ? "grid-cols-3" : "grid-cols-3 sm:grid-cols-4";
+  const cols = totalPairs <= 4 ? "grid-cols-3" : "grid-cols-3 sm:grid-cols-4";
 
   return (
     <div>
