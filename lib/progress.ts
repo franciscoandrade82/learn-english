@@ -40,7 +40,7 @@ export function getAllScores(): Record<string, ActivityScore> {
 }
 
 export function getTopicCompletion(topicId: string): { completed: number; total: number } {
-  const activities = ["matching", "quiz", "fill", "spelling"];
+  const activities = ["matching", "quiz", "fill"];
   let completed = 0;
   for (const act of activities) {
     const score = getBestScore(topicId, act);

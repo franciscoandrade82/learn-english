@@ -9,7 +9,6 @@ const activities = [
   { id: "matching", emoji: "🃏", name: "Matching" },
   { id: "quiz", emoji: "❓", name: "Quiz" },
   { id: "fill", emoji: "✏️", name: "Fill" },
-  { id: "spelling", emoji: "🔤", name: "Spelling" },
 ];
 
 export default function ProgressPage() {

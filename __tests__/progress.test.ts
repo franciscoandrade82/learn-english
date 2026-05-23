@@ -56,19 +56,19 @@ describe("Progress Tracking", () => {
 
   it("getTopicCompletion counts activities >= 60%", () => {
     // No scores
-    expect(getTopicCompletion("clothes")).toEqual({ completed: 0, total: 4 });
+    expect(getTopicCompletion("clothes")).toEqual({ completed: 0, total: 3 });
 
     // One activity at 80%
     saveScore("clothes", "quiz", 8, 10);
-    expect(getTopicCompletion("clothes")).toEqual({ completed: 1, total: 4 });
+    expect(getTopicCompletion("clothes")).toEqual({ completed: 1, total: 3 });
 
     // Another at 50% (not counted)
     saveScore("clothes", "matching", 3, 6);
-    expect(getTopicCompletion("clothes")).toEqual({ completed: 1, total: 4 });
+    expect(getTopicCompletion("clothes")).toEqual({ completed: 1, total: 3 });
 
     // Another at 75% (counted)
     saveScore("clothes", "fill", 6, 8);
-    expect(getTopicCompletion("clothes")).toEqual({ completed: 2, total: 4 });
+    expect(getTopicCompletion("clothes")).toEqual({ completed: 2, total: 3 });
   });
 
   it("resetProgress clears all scores", () => {

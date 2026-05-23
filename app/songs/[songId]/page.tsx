@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, use } from "react";
+import { use } from "react";
 import BackButton from "@/components/BackButton";
+import SpeakButton from "@/components/SpeakButton";
 import { getSong } from "@/data/songs";
 import { notFound } from "next/navigation";
 
@@ -15,124 +16,70 @@ export default function SongPage({
   if (!maybeSong) return notFound();
   const song = maybeSong;
 
-  const blanks = song.lines.filter((l) => l.answer);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [checked, setChecked] = useState(false);
-
-  function handleChange(index: number, value: string) {
-    setAnswers((prev) => ({ ...prev, [index]: value }));
-  }
-
-  function handleCheck() {
-    setChecked(true);
-  }
-
-  function handleReset() {
-    setAnswers({});
-    setChecked(false);
-  }
-
-  const totalBlanks = blanks.length;
-  const correctCount = checked
-    ? song.lines.reduce((count, line, i) => {
-        if (!line.answer) return count;
-        return (
-          count +
-          ((answers[i] || "").trim().toLowerCase() === line.answer.toLowerCase()
-            ? 1
-            : 0)
-        );
-      }, 0)
-    : 0;
-
-  let blankIndex = 0;
-
   return (
     <div>
       <BackButton />
       <div className="text-center mb-6">
         <div className="text-4xl mb-2">🎵</div>
         <h1 className="text-2xl font-extrabold text-gray-800">{song.title}</h1>
-        <p className="text-gray-400">Fill in the missing words!</p>
+        <p className="text-gray-400">Review the lyrics and vocabulary!</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         {song.lines.map((line, i) => {
-          if (line.text === "") return <div key={i} className="h-4" />;
+          if (line.text === "") return <div key={i} className="h-3" />;
 
           if (!line.answer) {
             return (
               <p
                 key={i}
-                className={`text-lg leading-relaxed ${line.isChorus ? "italic text-gray-400" : "text-gray-800 font-semibold"}`}
+                className={`text-base leading-relaxed ${line.isChorus ? "italic text-gray-400" : "text-gray-600"}`}
               >
                 {line.text}
               </p>
             );
           }
 
-          blankIndex++;
+          // Line with vocabulary word highlighted
           const parts = line.text.split("___");
-          const userAnswer = answers[i] || "";
-          const isCorrect =
-            checked &&
-            userAnswer.trim().toLowerCase() === line.answer.toLowerCase();
-          const isWrong = checked && !isCorrect;
-
           return (
-            <p
-              key={i}
-              className="text-lg leading-relaxed text-gray-800 font-semibold flex flex-wrap items-center gap-1 my-1"
-            >
-              <span>{parts[0]}</span>
-              <input
-                type="text"
-                value={checked && isWrong ? line.answer : userAnswer}
-                onChange={(e) => handleChange(i, e.target.value)}
-                disabled={checked}
-                placeholder={`(${blankIndex})`}
-                className={`inline-block w-28 px-2 py-1 border-b-2 text-center font-bold text-[16px] rounded-lg ${
-                  checked
-                    ? isCorrect
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : "border-red-400 bg-red-50 text-red-600"
-                    : "border-gray-300 bg-gray-50"
-                }`}
-              />
-              <span>{parts[1]}</span>
+            <p key={i} className="text-base leading-relaxed text-gray-600 my-0.5">
+              {parts[0]}
+              <span
+                className="font-extrabold px-1 rounded"
+                style={{ color: song.color }}
+              >
+                {line.answer}
+              </span>
+              <SpeakButton text={line.answer} size="sm" />
+              {parts[1]}
             </p>
           );
         })}
       </div>
 
-      {!checked ? (
-        <button
-          onClick={handleCheck}
-          className="w-full py-4 rounded-2xl text-white font-bold text-lg active:scale-95 transition-transform"
-          style={{ backgroundColor: song.color }}
-        >
-          Check Answers
-        </button>
-      ) : (
-        <div className="text-center">
-          <p
-            className="text-2xl font-extrabold mb-4"
-            style={{
-              color: correctCount === totalBlanks ? "#22C55E" : song.color,
-            }}
-          >
-            {correctCount} / {totalBlanks} correct{" "}
-            {correctCount === totalBlanks ? "🎉" : "💪"}
-          </p>
-          <button
-            onClick={handleReset}
-            className="w-full py-4 rounded-2xl text-white font-bold text-lg active:scale-95 transition-transform"
-            style={{ backgroundColor: song.color }}
-          >
-            Try Again
-          </button>
+      {/* Vocabulary summary */}
+      <div className="bg-white rounded-2xl shadow-md p-5">
+        <h3 className="font-extrabold text-gray-800 mb-3">Key Words</h3>
+        <div className="flex flex-wrap gap-2">
+          {song.lines
+            .filter((l) => l.answer)
+            .reduce((unique: string[], l) => {
+              if (!unique.includes(l.answer!)) unique.push(l.answer!);
+              return unique;
+            }, [])
+            .map((word) => (
+              <span
+                key={word}
+                className="px-3 py-1.5 rounded-full font-bold text-sm text-white flex items-center gap-1"
+                style={{ backgroundColor: song.color }}
+              >
+                {word}
+                <SpeakButton text={word} size="sm" />
+              </span>
+            ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
