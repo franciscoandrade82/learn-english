@@ -35,15 +35,23 @@ export default function Flashcards({ words, color = "#45B7D1" }: Props) {
 
   function goNext() {
     if (current + 1 < shuffled.length) {
-      setCurrent((c) => c + 1);
-      setFlipped(false);
+      if (flipped) {
+        setFlipped(false);
+        setTimeout(() => setCurrent((c) => c + 1), 300);
+      } else {
+        setCurrent((c) => c + 1);
+      }
     }
   }
 
   function goPrev() {
     if (current > 0) {
-      setCurrent((c) => c - 1);
-      setFlipped(false);
+      if (flipped) {
+        setFlipped(false);
+        setTimeout(() => setCurrent((c) => c - 1), 300);
+      } else {
+        setCurrent((c) => c - 1);
+      }
     }
   }
 
