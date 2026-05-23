@@ -27,6 +27,33 @@ export default function Home() {
             <p className="text-white/80 text-lg">Pronouns & Possessives</p>
           </div>
         </Link>
+        {/* Songs */}
+        <Link href="/songs" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
+          <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #F59E0B, #EAB308)" }}>
+            <div className="text-4xl mb-2">🎵</div>
+            <h2 className="text-2xl font-extrabold">Songs</h2>
+            <p className="text-white/80 text-lg">Sing and fill in the blanks</p>
+          </div>
+        </Link>
+
+        {/* Reading */}
+        <Link href="/read" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
+          <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #06B6D4, #0891B2)" }}>
+            <div className="text-4xl mb-2">📖</div>
+            <h2 className="text-2xl font-extrabold">Reading</h2>
+            <p className="text-white/80 text-lg">Read and answer questions</p>
+          </div>
+        </Link>
+
+        {/* Writing */}
+        <Link href="/write" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
+          <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #A855F7, #EC4899)" }}>
+            <div className="text-4xl mb-2">✍️</div>
+            <h2 className="text-2xl font-extrabold">Writing Practice</h2>
+            <p className="text-white/80 text-lg">Write and get AI feedback</p>
+          </div>
+        </Link>
+
         <Link href="/test" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
           <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #FF6B6B, #FF8E53)" }}>
             <div className="text-4xl mb-2">🎯</div>
