@@ -1,19 +1,29 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ConfettiEffect from "./ConfettiEffect";
+import { saveScore } from "@/lib/progress";
 
 type Props = {
   score: number;
   total: number;
   color?: string;
   onPlayAgain: () => void;
+  topicId?: string;
+  activity?: string;
 };
 
-export default function ScoreScreen({ score, total, color = "#45B7D1", onPlayAgain }: Props) {
+export default function ScoreScreen({ score, total, color = "#45B7D1", onPlayAgain, topicId, activity }: Props) {
   const router = useRouter();
   const percent = Math.round((score / total) * 100);
   const stars = percent >= 90 ? 3 : percent >= 60 ? 2 : percent >= 30 ? 1 : 0;
+
+  useEffect(() => {
+    if (topicId && activity) {
+      saveScore(topicId, activity, score, total);
+    }
+  }, [topicId, activity, score, total]);
   const messages = [
     "Keep trying! You can do it! 💪",
     "Good job! Keep practising! 👍",

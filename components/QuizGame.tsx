@@ -6,7 +6,7 @@ import ProgressBar from "./ProgressBar";
 import ScoreScreen from "./ScoreScreen";
 import { VocabularyItem } from "@/data/types";
 
-type Props = { words: VocabularyItem[]; color?: string };
+type Props = { words: VocabularyItem[]; color?: string; topicId?: string };
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -26,7 +26,7 @@ function generateQuestions(words: VocabularyItem[]): Question[] {
   });
 }
 
-export default function QuizGame({ words, color = "#45B7D1" }: Props) {
+export default function QuizGame({ words, color = "#45B7D1", topicId }: Props) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
@@ -41,7 +41,7 @@ export default function QuizGame({ words, color = "#45B7D1" }: Props) {
   useEffect(() => { init(); }, [init]);
 
   if (questions.length === 0) return null;
-  if (finished) return <ScoreScreen score={score} total={questions.length} color={color} onPlayAgain={init} />;
+  if (finished) return <ScoreScreen score={score} total={questions.length} color={color} onPlayAgain={init} topicId={topicId} activity="quiz" />;
 
   const q = questions[current];
 

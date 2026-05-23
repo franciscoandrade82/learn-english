@@ -17,6 +17,7 @@ type Card = {
 type Props = {
   words: VocabularyItem[];
   color?: string;
+  topicId?: string;
 };
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -28,7 +29,7 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
-export default function MatchingGame({ words, color = "#45B7D1" }: Props) {
+export default function MatchingGame({ words, color = "#45B7D1", topicId }: Props) {
   const [cards, setCards] = useState<Card[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
@@ -98,7 +99,7 @@ export default function MatchingGame({ words, color = "#45B7D1" }: Props) {
     const perfectMoves = totalPairs;
     const maxMoves = totalPairs * 3;
     const score = Math.max(0, Math.round(((maxMoves - moves) / (maxMoves - perfectMoves)) * totalPairs));
-    return <ScoreScreen score={Math.min(score, totalPairs)} total={totalPairs} color={color} onPlayAgain={initGame} />;
+    return <ScoreScreen score={Math.min(score, totalPairs)} total={totalPairs} color={color} onPlayAgain={initGame} topicId={topicId} activity="matching" />;
   }
 
   const cols = totalPairs <= 4 ? "grid-cols-3" : "grid-cols-3 sm:grid-cols-4";

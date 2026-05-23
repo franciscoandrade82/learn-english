@@ -17,7 +17,7 @@ export default async function QuizPage({ params }: Props) {
         <h1 className="text-2xl font-extrabold text-gray-800">{topic.emoji} {topic.name} — Quiz</h1>
         <p className="text-gray-400">Pick the right answer!</p>
       </div>
-      <QuizGame words={topic.words} color={topic.color} />
+      <QuizGame words={topic.words} color={topic.color} topicId={topicId} />
     </div>
   );
 }

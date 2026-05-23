@@ -17,7 +17,7 @@ export default async function MatchingPage({ params }: Props) {
         <h1 className="text-2xl font-extrabold text-gray-800">{topic.emoji} {topic.name} — Matching</h1>
         <p className="text-gray-400">Find the pairs!</p>
       </div>
-      <MatchingGame words={topic.words} color={topic.color} />
+      <MatchingGame words={topic.words} color={topic.color} topicId={topicId} />
     </div>
   );
 }

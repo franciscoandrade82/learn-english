@@ -17,7 +17,7 @@ export default async function FillPage({ params }: Props) {
         <h1 className="text-2xl font-extrabold text-gray-800">{topic.emoji} {topic.name} — Fill in the Blanks</h1>
         <p className="text-gray-400">Complete the sentence!</p>
       </div>
-      <FillBlanks sentences={topic.sentences} color={topic.color} />
+      <FillBlanks sentences={topic.sentences} color={topic.color} topicId={topicId} />
     </div>
   );
 }

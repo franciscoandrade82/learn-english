@@ -54,6 +54,15 @@ export default function Home() {
           </div>
         </Link>
 
+        {/* Progress */}
+        <Link href="/progress" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
+          <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #10B981, #059669)" }}>
+            <div className="text-4xl mb-2">📊</div>
+            <h2 className="text-2xl font-extrabold">Progress</h2>
+            <p className="text-white/80 text-lg">Track your scores</p>
+          </div>
+        </Link>
+
         <Link href="/test" className="block bg-white rounded-2xl shadow-md hover:shadow-lg active:scale-[0.97] transition-all duration-200 overflow-hidden">
           <div className="p-6 text-white" style={{ background: "linear-gradient(135deg, #FF6B6B, #FF8E53)" }}>
             <div className="text-4xl mb-2">🎯</div>
