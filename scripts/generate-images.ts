@@ -77,13 +77,13 @@ const images: ImageRequest[] = [
   { folder: "mascot", filename: "sad.png", prompt: "a cute friendly owl mascot character wearing a graduation cap, slightly sad but encouraging expression, thumbs up" },
 ];
 
-async function generateImage(req: ImageRequest): Promise<void> {
+async function generateImage(req: ImageRequest): Promise<string> {
   const outDir = path.join(process.cwd(), "public", "images", req.folder);
   const outPath = path.join(outDir, req.filename);
 
   if (fs.existsSync(outPath)) {
     console.log(`SKIP (exists): ${req.folder}/${req.filename}`);
-    return;
+    return "skipped";
   }
 
   fs.mkdirSync(outDir, { recursive: true });
