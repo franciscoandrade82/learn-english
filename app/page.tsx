@@ -21,7 +21,7 @@ export default function Home() {
     <div>
       {/* Header with mascot */}
       <div className="text-center pt-6 pb-4">
-        <Image src="/images/mascot/waving.png" alt="" width={80} height={80} className="mx-auto mb-2 object-contain" />
+        <Image src="/images/mascot/waving.png" alt="" width={80} height={80} className="mx-auto mb-2 object-contain rounded-full" style={{ mixBlendMode: "multiply" }} />
         <h1 className="text-3xl font-extrabold text-gray-800 mb-0.5">Learn English</h1>
         <p className="text-sm text-gray-400">3rd Grade — Units 5 & 6</p>
       </div>

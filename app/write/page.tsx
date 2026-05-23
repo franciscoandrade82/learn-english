@@ -184,8 +184,19 @@ export default function WritePage() {
             <div className="text-sm font-semibold text-purple-600 mb-2">
               Teacher&apos;s Feedback
             </div>
-            <div className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-              {feedback}
+            <div className="text-gray-800 leading-relaxed space-y-1">
+              {feedback.split("\n").map((line, i) => {
+                if (!line.trim()) return <div key={i} className="h-2" />;
+                // Render **bold** markers
+                const parts = line.split(/\*\*(.*?)\*\*/g);
+                return (
+                  <p key={i}>
+                    {parts.map((part, j) =>
+                      j % 2 === 1 ? <strong key={j} className="text-purple-700">{part}</strong> : part
+                    )}
+                  </p>
+                );
+              })}
             </div>
           </div>
           <div className="flex gap-3">
