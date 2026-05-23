@@ -25,6 +25,15 @@ export default async function UnitPage({ params }: Props) {
             title={topic.name} subtitle={`${topic.words.length} words`} color={topic.color} />
         ))}
       </div>
+      <div className="mt-6">
+        <TopicCard
+          href={`/unit/${unitId}/board`}
+          emoji="🎲"
+          title="Board Game"
+          subtitle="Roll the dice and answer!"
+          color={unit.color}
+        />
+      </div>
     </div>
   );
 }
