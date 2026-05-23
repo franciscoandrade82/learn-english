@@ -3,6 +3,7 @@
 import { useState, use } from "react";
 import BackButton from "@/components/BackButton";
 import { getSong } from "@/data/songs";
+import { speakSlow, stopSpeaking } from "@/lib/speech";
 import { notFound } from "next/navigation";
 
 export default function SongPage({
@@ -11,12 +12,34 @@ export default function SongPage({
   params: Promise<{ songId: string }>;
 }) {
   const { songId } = use(params);
-  const song = getSong(songId);
-  if (!song) notFound();
+  const maybeSong = getSong(songId);
+  if (!maybeSong) return notFound();
+  const song = maybeSong;
 
   const blanks = song.lines.filter((l) => l.answer);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [checked, setChecked] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+
+  function readAloud() {
+    if (speaking) {
+      stopSpeaking();
+      setSpeaking(false);
+      return;
+    }
+    const fullLyrics = song.lines
+      .filter((l) => l.text)
+      .map((l) => {
+        if (l.answer) return l.text.replace("___", l.answer);
+        return l.text;
+      })
+      .join(".\n");
+    setSpeaking(true);
+    speakSlow(fullLyrics);
+    // Reset speaking state when done
+    const estimatedDuration = fullLyrics.length * 80;
+    setTimeout(() => setSpeaking(false), estimatedDuration);
+  }
 
   function handleChange(index: number, value: string) {
     setAnswers((prev) => ({ ...prev, [index]: value }));
@@ -52,7 +75,17 @@ export default function SongPage({
       <div className="text-center mb-6">
         <div className="text-4xl mb-2">🎵</div>
         <h1 className="text-2xl font-extrabold text-gray-800">{song.title}</h1>
-        <p className="text-gray-400">Fill in the missing words!</p>
+        <p className="text-gray-400 mb-3">Fill in the missing words!</p>
+        <button
+          onClick={readAloud}
+          className={`px-5 py-2 rounded-full font-bold text-sm active:scale-95 transition-all ${
+            speaking
+              ? "bg-red-100 text-red-600"
+              : "bg-blue-100 text-blue-600"
+          }`}
+        >
+          {speaking ? "⏹ Stop" : "🔊 Read Aloud"}
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">

@@ -43,14 +43,14 @@ Format (use markdown bold for headers, keep each section to 1-2 short lines max)
 The corrected version of their text
 
 **Em português 🇵🇹**
-Same feedback in Portuguese (very brief, 2-3 lines total)
+Same feedback in European Portuguese (PT-PT, NOT Brazilian Portuguese). Very brief, 2-3 lines total.
 
 Rules:
 - Maximum 100 words total (excluding the corrected text and Portuguese section)
 - Use bullet points, not paragraphs
 - Be encouraging but brief
 - If perfect, just celebrate and skip the Fix section
-- The Portuguese section should be a brief summary, not a full translation`,
+- The Portuguese section MUST use European Portuguese (Portugal), not Brazilian Portuguese. Use "tu" not "você", and Portuguese vocabulary/expressions.`,
         },
         {
           role: "user",

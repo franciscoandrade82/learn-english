@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { VocabularyItem } from "@/data/types";
+import { speak } from "@/lib/speech";
 
 type Props = { words: VocabularyItem[]; color?: string };
 
@@ -73,8 +74,13 @@ export default function Flashcards({ words, color = "#45B7D1" }: Props) {
             className="rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center min-h-[300px] absolute inset-0 text-white"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: color }}
           >
-            <p className="text-4xl font-extrabold mb-2">{word.word}</p>
-            <p className="text-white/60 text-sm">Tap to flip back</p>
+            <p className="text-4xl font-extrabold mb-3">{word.word}</p>
+            <button
+              onClick={(e) => { e.stopPropagation(); speak(word.word); }}
+              className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 active:scale-90 transition-all text-xl"
+            >
+              🔊
+            </button>
           </div>
         </button>
       </div>

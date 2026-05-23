@@ -5,6 +5,7 @@ import Image from "next/image";
 import ProgressBar from "./ProgressBar";
 import ScoreScreen from "./ScoreScreen";
 import { VocabularyItem } from "@/data/types";
+import { speak } from "@/lib/speech";
 
 type Props = { words: VocabularyItem[]; color?: string; topicId?: string };
 
@@ -48,6 +49,7 @@ export default function SpellingGame({ words, color = "#45B7D1", topicId }: Prop
     if (correct) {
       setStatus("correct");
       setScore((s) => s + 1);
+      speak(word.word);
       setTimeout(goNext, 1200);
     } else {
       const newAttempts = attempts + 1;
