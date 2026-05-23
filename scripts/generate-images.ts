@@ -125,20 +125,11 @@ async function main() {
 
   for (let i = 0; i < images.length; i++) {
     let result = await generateImage(images[i]);
-    if (result === "rate_limited") {
+    while (result === "rate_limited") {
       console.log("  (waiting 15s for rate limit...)");
       await new Promise((r) => setTimeout(r, 15000));
       result = await generateImage(images[i]);
-      if (result === "rate_limited") {
-        console.log("  (waiting 30s for rate limit...)");
-        await new Promise((r) => setTimeout(r, 30000));
-        await generateImage(images[i]);
-      }
-    } else if (result === "generated") {
-      console.log("  (waiting 13s for rate limits...)");
-      await new Promise((r) => setTimeout(r, 13000));
     }
-    // skipped files: no wait needed
   }
 
   console.log(`\nDone! Generated images are in public/images/`);
