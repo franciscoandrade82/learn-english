@@ -109,8 +109,14 @@ async function generateImage(req: ImageRequest): Promise<void> {
       fs.writeFileSync(outPath, Buffer.from(await imgResponse.arrayBuffer()));
     }
     console.log(`  ✓ Saved: ${req.folder}/${req.filename}`);
-  } catch (error) {
+    return "generated";
+  } catch (error: unknown) {
+    if (error && typeof error === "object" && "status" in error && (error as { status: number }).status === 429) {
+      console.log(`  ⏳ Rate limited: ${req.folder}/${req.filename} — will retry after wait`);
+      return "rate_limited";
+    }
     console.error(`  ✗ Failed: ${req.folder}/${req.filename}`, error);
+    return "failed";
   }
 }
 
@@ -118,11 +124,21 @@ async function main() {
   console.log(`Generating ${images.length} images...\n`);
 
   for (let i = 0; i < images.length; i++) {
-    await generateImage(images[i]);
-    if (i + 1 < images.length) {
-      console.log("  (waiting 15s for rate limits...)");
+    let result = await generateImage(images[i]);
+    if (result === "rate_limited") {
+      console.log("  (waiting 15s for rate limit...)");
       await new Promise((r) => setTimeout(r, 15000));
+      result = await generateImage(images[i]);
+      if (result === "rate_limited") {
+        console.log("  (waiting 30s for rate limit...)");
+        await new Promise((r) => setTimeout(r, 30000));
+        await generateImage(images[i]);
+      }
+    } else if (result === "generated") {
+      console.log("  (waiting 13s for rate limits...)");
+      await new Promise((r) => setTimeout(r, 13000));
     }
+    // skipped files: no wait needed
   }
 
   console.log(`\nDone! Generated images are in public/images/`);
