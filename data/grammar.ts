@@ -1,0 +1,25 @@
+import { GrammarExercise } from "./types";
+
+export const grammarExercises: GrammarExercise[] = [
+  { sentence: "This is ___ book.", answer: "my", options: ["my", "mine", "me", "I"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "Is this ___ hat?", answer: "your", options: ["your", "yours", "you", "mine"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "He gave me ___ coat.", answer: "his", options: ["his", "him", "he", "her"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "That's ___ car.", answer: "her", options: ["her", "hers", "she", "his"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "Do you like my doll? These are ___ clothes.", answer: "its", options: ["its", "it", "his", "her"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "___ party was fun.", answer: "Our", options: ["Our", "Ours", "We", "Us"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "___ home is lovely.", answer: "Their", options: ["Their", "Theirs", "They", "Them"], explanation: "Possessive adjective — comes before a noun." },
+  { sentence: "This book is ___.", answer: "mine", options: ["mine", "my", "me", "I"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "Is that hat ___?", answer: "yours", options: ["yours", "your", "you", "mine"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "That's not mine. That's ___.", answer: "his", options: ["his", "him", "he", "her"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "The blue car is ___.", answer: "hers", options: ["hers", "her", "she", "his"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "The car is ___.", answer: "ours", options: ["ours", "our", "we", "us"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "The house is ___.", answer: "theirs", options: ["theirs", "their", "they", "them"], explanation: "Possessive pronoun — stands alone, no noun after it." },
+  { sentence: "___ is wearing a red T-shirt.", answer: "He", options: ["He", "Him", "His", "Her"], explanation: "Subject pronoun — does the action." },
+  { sentence: "___ are playing football.", answer: "They", options: ["They", "Them", "Their", "We"], explanation: "Subject pronoun — does the action." },
+  { sentence: "___ is wearing a blue dress.", answer: "She", options: ["She", "Her", "Hers", "He"], explanation: "Subject pronoun — does the action." },
+  { sentence: "Give it to ___.", answer: "me", options: ["me", "my", "I", "mine"], explanation: "Object pronoun — receives the action." },
+  { sentence: "I can see ___.", answer: "them", options: ["them", "they", "their", "theirs"], explanation: "Object pronoun — receives the action." },
+  { sentence: "Tell ___ about the game.", answer: "him", options: ["him", "he", "his", "her"], explanation: "Object pronoun — receives the action." },
+  { sentence: "Can you help ___?", answer: "us", options: ["us", "we", "our", "ours"], explanation: "Object pronoun — receives the action." },
+  { sentence: "I like ___.", answer: "her", options: ["her", "she", "hers", "him"], explanation: "Object pronoun — receives the action." },
+];
