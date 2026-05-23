@@ -62,7 +62,7 @@ export default function QuizGame({ words, color = "#45B7D1" }: Props) {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6 text-center">
         <p className="text-sm font-bold text-gray-400 mb-3">What is this?</p>
         <div className="flex justify-center mb-4">
-          <Image src={q.correct.image} alt="" width={150} height={150} className="object-contain" />
+          <Image src={q.correct.image} alt="" width={150} height={150} className="object-contain" priority />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">

@@ -79,7 +79,7 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
         {ex.image && (
           <div className="flex justify-center mb-4">
-            <Image src={ex.image} alt="" width={120} height={120} className="object-contain" />
+            <Image src={ex.image} alt="" width={120} height={120} className="object-contain" priority />
           </div>
         )}
         <p className="text-xl font-bold text-gray-800 text-center leading-relaxed">
