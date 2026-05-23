@@ -55,9 +55,12 @@ export default function Flashcards({ words, color = "#45B7D1" }: Props) {
 
       {/* Card */}
       <div className="perspective-1000 mb-6" style={{ perspective: "1000px" }}>
-        <button
+        <div
           onClick={() => setFlipped(!flipped)}
-          className="w-full transition-transform duration-500 active:scale-[0.97]"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && setFlipped(!flipped)}
+          className="w-full transition-transform duration-500 active:scale-[0.97] cursor-pointer"
           style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
         >
           {/* Front - Image */}
@@ -82,7 +85,7 @@ export default function Flashcards({ words, color = "#45B7D1" }: Props) {
               🔊
             </button>
           </div>
-        </button>
+        </div>
       </div>
 
       {/* Navigation */}
