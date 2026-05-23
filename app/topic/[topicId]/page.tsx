@@ -11,9 +11,11 @@ export default async function TopicPage({ params }: Props) {
   if (!topic) notFound();
 
   const activities = [
+    { id: "flashcards", emoji: "🎴", name: "Flashcards", subtitle: "Flip and learn" },
     { id: "matching", emoji: "🃏", name: "Matching", subtitle: "Find the pairs" },
     { id: "quiz", emoji: "❓", name: "Quiz", subtitle: "Multiple choice" },
     { id: "fill", emoji: "✏️", name: "Fill in the Blanks", subtitle: "Complete sentences" },
+    { id: "spelling", emoji: "🔤", name: "Spelling", subtitle: "Type the word" },
   ];
 
   return (
