@@ -17,13 +17,18 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
+function buildHint(word: string): string {
+  if (word.length <= 2) return word[0] + " _";
+  return word[0] + " _ ".repeat(word.length - 2).trim() + " " + word[word.length - 1];
+}
+
 export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
   const [exercises, setExercises] = useState<SentenceExercise[]>([]);
   const [current, setCurrent] = useState(0);
   const [input, setInput] = useState("");
   const [score, setScore] = useState(0);
   const [attempts, setAttempts] = useState(0);
-  const [status, setStatus] = useState<"typing" | "correct" | "wrong" | "revealed">("typing");
+  const [status, setStatus] = useState<"typing" | "correct" | "wrong" | "hint" | "revealed">("typing");
   const [finished, setFinished] = useState(false);
 
   const init = useCallback(() => {
@@ -45,10 +50,14 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
       setScore((s) => s + 1);
       setTimeout(goNext, 1200);
     } else {
-      setAttempts((a) => a + 1);
-      if (attempts >= 1) {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      if (newAttempts >= 3) {
         setStatus("revealed");
-        setTimeout(goNext, 2000);
+        setTimeout(goNext, 2500);
+      } else if (newAttempts >= 2) {
+        setStatus("hint");
+        setTimeout(() => { setStatus("typing"); setInput(""); }, 2000);
       } else {
         setStatus("wrong");
         setTimeout(() => { setStatus("typing"); setInput(""); }, 1000);
@@ -77,10 +86,10 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
           {parts[0]}
           <span className="inline-block min-w-[80px] border-b-4 mx-1 px-2 font-extrabold"
             style={{
-              borderColor: status === "correct" ? "#22C55E" : status === "wrong" ? "#EF4444" : status === "revealed" ? "#F59E0B" : color,
-              color: status === "correct" ? "#22C55E" : status === "revealed" ? "#F59E0B" : "inherit",
+              borderColor: status === "correct" ? "#22C55E" : status === "wrong" ? "#EF4444" : status === "revealed" ? "#F59E0B" : status === "hint" ? "#3B82F6" : color,
+              color: status === "correct" ? "#22C55E" : status === "revealed" ? "#F59E0B" : status === "hint" ? "#3B82F6" : "inherit",
             }}>
-            {status === "correct" || status === "revealed" ? ex.answer : status === "wrong" ? input : "\u00A0"}
+            {status === "correct" || status === "revealed" ? ex.answer : status === "hint" ? buildHint(ex.answer) : status === "wrong" ? input : "\u00A0"}
           </span>
           {parts[1]}
         </p>
@@ -98,6 +107,7 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
       )}
       {status === "correct" && <p className="text-center text-xl font-extrabold text-green-500 animate-float-up">Correct! 🎉</p>}
       {status === "wrong" && <p className="text-center text-lg font-bold text-red-400 animate-shake">Not quite — try again! 💪</p>}
+      {status === "hint" && <p className="text-center text-lg font-bold text-blue-500">Here's a hint! 💡 Try one more time!</p>}
       {status === "revealed" && <p className="text-center text-lg font-bold text-amber-500">The answer is: <strong>{ex.answer}</strong></p>}
     </div>
   );
