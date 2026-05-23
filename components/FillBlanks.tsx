@@ -57,7 +57,7 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
         setTimeout(goNext, 2500);
       } else if (newAttempts >= 2) {
         setStatus("hint");
-        setTimeout(() => { setStatus("typing"); setInput(""); }, 2000);
+        setInput("");
       } else {
         setStatus("wrong");
         setTimeout(() => { setStatus("typing"); setInput(""); }, 1000);
@@ -94,7 +94,7 @@ export default function FillBlanks({ sentences, color = "#45B7D1" }: Props) {
           {parts[1]}
         </p>
       </div>
-      {status === "typing" && (
+      {(status === "typing" || status === "hint") && (
         <div className="flex gap-3">
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && input.trim() && checkAnswer()}
