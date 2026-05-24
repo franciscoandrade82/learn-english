@@ -99,14 +99,14 @@ export const unit5Topics: Topic[] = [
       { word: "star", image: "/images/shapes/star.png" },
     ],
     sentences: [
-      { sentence: "It's a blue ___", answer: "square", image: "/images/shapes/square.png" },
+      { sentence: "It's a red ___", answer: "square", image: "/images/shapes/square.png" },
       { sentence: "It's a yellow ___", answer: "star", image: "/images/shapes/star.png" },
-      { sentence: "It's a purple ___", answer: "triangle", image: "/images/shapes/triangle.png" },
+      { sentence: "It's a green ___", answer: "triangle", image: "/images/shapes/triangle.png" },
       { sentence: "It's a red ___", answer: "heart", image: "/images/shapes/heart.png" },
       { sentence: "It's a pink ___", answer: "rectangle", image: "/images/shapes/rectangle.png" },
-      { sentence: "It's a green ___", answer: "circle", image: "/images/shapes/circle.png" },
+      { sentence: "It's a blue ___", answer: "circle", image: "/images/shapes/circle.png" },
       { sentence: "How many ___? Four rectangles!", answer: "rectangles", image: "/images/shapes/rectangle.png" },
-      { sentence: "It's a ___, it's a star, it's a yellow star", answer: "star", image: "/images/shapes/star.png" },
+      { sentence: "Look! It's a yellow ___!", answer: "star", image: "/images/shapes/star.png" },
     ],
   },
 ];
