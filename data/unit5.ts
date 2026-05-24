@@ -105,8 +105,8 @@ export const unit5Topics: Topic[] = [
       { sentence: "It's a red ___", answer: "heart", image: "/images/shapes/heart.png" },
       { sentence: "It's a pink ___", answer: "rectangle", image: "/images/shapes/rectangle.png" },
       { sentence: "It's a blue ___", answer: "circle", image: "/images/shapes/circle.png" },
-      { sentence: "How many ___? Four rectangles!", answer: "rectangles", image: "/images/shapes/rectangle.png" },
-      { sentence: "Look! It's a yellow ___!", answer: "star", image: "/images/shapes/star.png" },
+      { sentence: "This shape has three sides. It's a ___", answer: "triangle", image: "/images/shapes/triangle.png" },
+      { sentence: "This shape has no corners. It's a ___", answer: "circle", image: "/images/shapes/circle.png" },
     ],
   },
 ];
